@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  custom-mongo:
+    image: custom-mongo-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: miecho
+      MONGO_INITDB_ROOT_PASSWORD: mieszkowski
+      MONGO_INITDB_DATABASE: testcup
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: miecho
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mieszkowski
+      ME_CONFIG_MONGODB_URL: mongodb://miecho:mieszkowski@custom-mongo:27017/

@@ -1,0 +1,4 @@
+#! /bin/bash
+mongoimport --username=$MONGO_INITDB_ROOT_USERNAME --password=$MONGO_INITDB_ROOT_PASSWORD --host=localhost:27017 --db $MONGO_INITDB_DATABASE --collection group_stats --type csv --file /data/db/group_stats.csv --headerline --drop --authenticationDatabase=admin
+mongoimport --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host=localhost:27017 --db $MONGO_INITDB_DATABASE --collection group_data --type csv --file /data/db/data.csv --headerline --drop --authenticationDatabase=admin
+mongoimport --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --host=localhost:27017 --db $MONGO_INITDB_DATABASE --collection team_data --type csv --file /data/db/team_data.csv --headerline --drop --authenticationDatabase=admin
