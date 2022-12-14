@@ -1,17 +1,18 @@
 package main
 
 import (
-	"net/http"
+	"fmt"
 
-	"github.com/gin-gonic/gin"
+	"github.com/worldwidepaniel/uni-crud-project/internal/config"
+	"github.com/worldwidepaniel/uni-crud-project/internal/router"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run()
+	cfg, err := config.InitializeConfig()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	router := router.InitializeRouter(cfg)
+	router.Run()
 }
