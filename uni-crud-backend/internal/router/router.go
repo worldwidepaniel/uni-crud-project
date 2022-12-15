@@ -5,12 +5,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/worldwidepaniel/uni-crud-project/internal/config"
-	"github.com/worldwidepaniel/uni-crud-project/internal/jwtUtils"
+	"github.com/worldwidepaniel/uni-crud-project/internal/interfaces"
 	"github.com/worldwidepaniel/uni-crud-project/internal/middleware"
 	"github.com/worldwidepaniel/uni-crud-project/internal/structs"
 )
 
-func InitializeRouter(cfg config.Config) *gin.Engine {
+type Router struct{}
+
+func (r Router) InitializeRouter(cfg *config.Config, jwtUtils interfaces.JWTUtils) *gin.Engine {
 	router := gin.Default()
 
 	router.POST("/login", func(c *gin.Context) {
@@ -35,7 +37,7 @@ func InitializeRouter(cfg config.Config) *gin.Engine {
 	})
 
 	authorized := router.Group("/api")
-	authorized.Use(middleware.ValidateJWT([]byte(cfg.JWTSecret)))
+	authorized.Use(middleware.JWTAuth([]byte(cfg.JWTSecret), jwtUtils))
 	{
 		authorized.GET("/test", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{

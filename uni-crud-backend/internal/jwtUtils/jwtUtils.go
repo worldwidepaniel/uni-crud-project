@@ -8,7 +8,9 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func GenerateJWT(user string, secret []byte) (string, error) {
+type JWTUtils struct{}
+
+func (j JWTUtils) GenerateJWT(user string, secret []byte) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"valid_to": time.Now().Add(time.Minute * 20).Unix(),
 		"bearer":   user,
@@ -21,7 +23,7 @@ func GenerateJWT(user string, secret []byte) (string, error) {
 	return tokenString, nil
 }
 
-func ValidateJWT(tokenString string, secret []byte) error {
+func (j JWTUtils) ValidateJWT(tokenString string, secret []byte) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])

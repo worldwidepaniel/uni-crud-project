@@ -4,10 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/worldwidepaniel/uni-crud-project/internal/jwtUtils"
+	"github.com/worldwidepaniel/uni-crud-project/internal/interfaces"
 )
 
-func ValidateJWT(secret []byte) gin.HandlerFunc {
+func JWTAuth(secret []byte, jwtUtils interfaces.JWTUtils) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		jwtToken := ctx.Request.Header.Get("token")
 		if err := jwtUtils.ValidateJWT(jwtToken, secret); err != nil {
