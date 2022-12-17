@@ -4,31 +4,26 @@ import (
 	"log"
 	"os"
 
+	"github.com/worldwidepaniel/uni-crud-project/internal/structs"
 	"gopkg.in/yaml.v3"
 )
 
-type Config struct {
-	JWTSecret string `yaml:"JWTSecret"`
-	DBPath    string `yaml:"DBPath"`
-	Port      string `yaml:"Port"`
-}
-
-func (c Config) InitializeConfig() Config {
+func InitializeConfig() structs.Config {
 	file, err := os.Open("./config.yaml")
 
 	if err != nil {
 		log.Fatal(err)
-		return Config{}
+		return structs.Config{}
 	}
 
 	defer file.Close()
 
-	var cfg Config
+	var cfg structs.Config
 	decoder := yaml.NewDecoder(file)
 	err = decoder.Decode(&cfg)
 	if err != nil {
 		log.Fatal(err)
-		return Config{}
+		return structs.Config{}
 	}
 	return cfg
 }

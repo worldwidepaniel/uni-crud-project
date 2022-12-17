@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/worldwidepaniel/uni-crud-project/internal/config"
 	"github.com/worldwidepaniel/uni-crud-project/internal/interfaces"
 	"github.com/worldwidepaniel/uni-crud-project/internal/middleware"
 	"github.com/worldwidepaniel/uni-crud-project/internal/structs"
@@ -12,7 +11,7 @@ import (
 
 type Router struct{}
 
-func (r Router) InitializeRouter(cfg *config.Config, jwtUtils interfaces.JWTUtils) *gin.Engine {
+func (r Router) InitializeRouter(cfg *structs.Config, jwtUtils interfaces.JWTUtils) *gin.Engine {
 	router := gin.Default()
 
 	router.POST("/login", func(c *gin.Context) {

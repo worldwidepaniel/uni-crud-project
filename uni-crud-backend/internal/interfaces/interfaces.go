@@ -2,11 +2,11 @@ package interfaces
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/worldwidepaniel/uni-crud-project/internal/config"
+	"github.com/worldwidepaniel/uni-crud-project/internal/structs"
 )
 
 type Config interface {
-	InitializeConfig() config.Config
+	InitializeConfig() structs.Config
 }
 
 type JWTUtils interface {
@@ -15,5 +15,5 @@ type JWTUtils interface {
 }
 
 type Router interface {
-	InitializeRouter(*config.Config, JWTUtils) *gin.Engine
+	InitializeRouter(*structs.Config, JWTUtils) *gin.Engine
 }
